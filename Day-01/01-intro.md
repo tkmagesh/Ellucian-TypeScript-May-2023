@@ -41,7 +41,7 @@ function add(){
         if (Array.isArray(n)) return add.apply(this, n);
         return isNaN(n) ? 0 : parseInt(n);
     }
-    return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add.apply(this, Array.prototype.slice.call(arguments,1));
+    return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add.apply(this, [].slice.call(arguments,1));
 }
 ```
 
@@ -180,4 +180,26 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
         }
         
         greet.apply(emp, ['Mr.', 'Have a nice day!'])
+    ```
+
+    ### Using bind() ###
+    ```
+        let emp = {
+            name : 'Magesh',
+            whoAmI : function(){
+                console.log('I am ', this.name)
+            }
+        }
+                 
+        emp.whoAmI = emp.whoAmI.bind(emp)
+        emp.whoAmI()
+        
+        window.name = 'Chrome Browser'
+        var whoAmI = emp.whoAmI;
+        whoAmI()
+
+        var product = {
+            name : 'Pen'
+        }
+        emp.whoAmI.call(product)
     ```
