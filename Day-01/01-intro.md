@@ -227,9 +227,11 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
 
 ## Prototypal Inheritance ##
 ### One object acts as a base object for a family of objects ###
-    
+
 - Every object has a hidden  **\_\_proto\_\_**  attribute that maintains a reference to the base object
 - "Prototype hopping" happens ONLY while reading an attribute value.
+
+![image Inheritance](./prototypal-inheritance.png)
 
 ```
     function Employee(id, name, salary){
@@ -254,3 +256,5 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
     OR
     Employee.prototype.display.call(dummy)
 ```
+
+## Closures ##
