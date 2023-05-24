@@ -258,3 +258,5 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
 ```
 
 ## Closures ##
+
+Modify the click-tracker.html to implement printing the number of times the button is clicked
