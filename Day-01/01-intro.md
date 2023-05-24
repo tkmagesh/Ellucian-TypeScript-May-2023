@@ -225,5 +225,32 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
         emp instanceof Employee
     ```
 
-## Prototypal Inheritence ##
-**One object acts as a base object for a family of objects**
+## Prototypal Inheritance ##
+### One object acts as a base object for a family of objects ###
+    
+- Every object has a hidden  **\_\_proto\_\_**  attribute that maintains a reference to the base object
+- "Prototype hopping" happens ONLY while reading an attribute value.
+
+```
+    function Employee(id, name, salary){
+        //this -> new object
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        //this -> returned by default
+    }
+    Employee.prototype.display = function(){
+        console.log(this.id, this.name, this.salary);
+    }
+
+    var e1 = new Employee(100, 'Magesh', 10000)
+    e1.display()
+
+    var e2 = new Employee(200, 'Suresh', 20000)
+    e2.display()
+
+    var dummy = { id : 300, name : 'Rajesh', salary : 30000 }
+    e1.display.call(dummy)
+    OR
+    Employee.prototype.display.call(dummy)
+```
