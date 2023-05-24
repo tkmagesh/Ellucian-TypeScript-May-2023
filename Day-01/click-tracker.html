@@ -8,15 +8,15 @@
     <title>Click Tracker</title>
 </head>
 <script>
-    (function myApp(){
-        var clicks = 0;
-        function handleClick() {
-            clicks += 1;
+    (function myApp(){ // step - 1
+        var clicks = 0; // step - 2
+        function handleClick() { // step - 3
+            clicks += 1; // step - 4
             document.getElementById('divResult').innerHTML = clicks;
         }
         function onDocumentLoad(){
             var btnTrack = document.getElementById('btnTrack');
-            btnTrack.addEventListener('click', handleClick)
+            btnTrack.addEventListener('click', handleClick) // step - 5
         }
         window.addEventListener('load', onDocumentLoad);
     })()

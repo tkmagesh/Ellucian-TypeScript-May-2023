@@ -261,3 +261,28 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
 ## Closures ##
 
 Modify the click-tracker.html to implement printing the number of times the button is clicked
+
+![image Closures](./closure.png)
+
+```
+    //Create an object and assign it to a variable called spinner
+    //the object must have the following behavior
+    var spinner = /* .... */
+    spinner.up() // return 1
+    spinner.up() // return 2
+    spinner.up() // return 3
+    spinner.up() // return 4
+
+    spinner.down() // return 3
+    spinner.down() // return 2
+    spinner.down() // return 1
+    spinner.down() // return 0
+    spinner.down() // return -1
+
+    IMPORTANT:
+        - Ensure that the behavior of the spinner object is NOT influenceable from outside
+        - NO HTML, NO BUTTON, NO Click event handler etc
+
+    
+
+```
