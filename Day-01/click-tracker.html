@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Click Tracker</title>
 </head>
+<script>
+    (function myApp(){
+        var clicks = 0;
+        function handleClick() {
+            clicks += 1;
+            document.getElementById('divResult').innerHTML = clicks;
+        }
+        function onDocumentLoad(){
+            var btnTrack = document.getElementById('btnTrack');
+            btnTrack.addEventListener('click', handleClick)
+        }
+        window.addEventListener('load', onDocumentLoad);
+    })()
+    // myApp()
+</script>
+
 <body>
     <h1>Click Tracker</h1>
-    <hr>
-    <button id="btnTrack">Track</button>
-    <div id="divResult">0</div>    
+    <hr />
+    <button id="btnTrack" >Track</button>
+    <div id="divResult">0</div>
 </body>
+
 </html>

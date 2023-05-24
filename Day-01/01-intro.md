@@ -224,6 +224,7 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
         var emp = new Employee(100, 'Magesh', 10000)
         emp instanceof Employee
     ```
+6. As an "Immediately Invoked Function Expression / IIFE"
 
 ## Prototypal Inheritance ##
 ### One object acts as a base object for a family of objects ###
