@@ -41,7 +41,7 @@ function add(){
         if (Array.isArray(n)) return add.apply(this, n);
         return isNaN(n) ? 0 : parseInt(n);
     }
-    return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add.apply(this, [].slice.call(arguments,1));
+    return arguments.length <= 1 ? parseArg(arguments[0]) : parseArg(arguments[0]) + add.apply(this, Array.prototype.slice.call(arguments,1));
 }
 ```
 
@@ -203,3 +203,27 @@ Whenever a function is invoked, there 2 implicit values that are passed to the f
         }
         emp.whoAmI.call(product)
     ```
+
+5. Using the **new** method of the function
+    ### Constructor Function ###
+    **A function that behaves like a 'class' on OO languages**
+    - There is no syntax difference between a normal function and a constructor function
+    - Constructor functions are invoked with the **new** keyword
+        - this -> new object
+        - this -> returned by default
+    - A constructor function's name must start with an uppercase (convention)
+
+    ```
+        function Employee(id, name, salary){
+            //this -> new object
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+            //this -> returned by default
+        }
+        var emp = new Employee(100, 'Magesh', 10000)
+        emp instanceof Employee
+    ```
+
+## Prototypal Inheritence ##
+**One object acts as a base object for a family of objects**
