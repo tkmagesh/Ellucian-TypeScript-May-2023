@@ -67,3 +67,117 @@ $(document).ready(function(){})
 $(function(){})
 $($el)
 ```
+
+**JS Fundamentals**
+- arguments?
+- add.apply?
+- Array.prototype.slice.call()?
+
+**Functions :**
+Whenever a function is invoked, there 2 implicit values that are passed to the function by default
+- arguments
+    - an ***array like*** object containing all the argument values passed to the function
+    - arguments.length => # of arguments passed to the function
+    - arguments[0]
+    - arguments[1]
+    - ....
+- this
+
+### Important: ###
+- It DOES NOT matter **WHERE** the function is OR **WHO** owns the function
+- What matters is **HOW** the function is invoked
+
+## Function Invocation Patterns (6 ways) ##
+### this -> Invocation context ###
+
+1. When a function is invoked as a **method** of an obj
+    - this -> obj
+    ```
+        let emp = {
+            name : 'Magesh'
+        }
+        function whoAmI(){
+            console.log('I am ', this.name)
+        }
+        emp['whoAmI'] = whoAmI
+        emp.whoAmI()
+    ```
+2. When a function is invoked as a **function**
+    - this -> global scope ( window object in the browser )
+    ```
+        function whoAmI(){
+            console.log('I am ', this.name)
+        }
+        whoAmI()
+    ```
+3. Using the **call** method of the function
+    ```
+        function fn(){
+            console.log('fn invoked');
+        }
+        fn()
+        fn.call()
+
+        //dynamically set the this context when the function is executed
+        let emp = {
+            name : 'Magesh'
+        }
+        
+        function whoAmI(){
+            console.log('I am ', this.name)
+        }
+
+        whoAmI.call(emp)
+
+        /////////////
+        let emp = {
+            name : 'Magesh',
+            whoAmI : function(){
+                console.log('I am ', this.name);
+            }
+        }
+        emp.whoAmI()
+        var product = {
+            name : 'Pen'
+        }
+        emp.whoAmI.call(product)
+        ////////////////
+        function greet(salutation, msg){
+            console.log(salutation + this.name + ', ' + msg);
+        }
+        
+        let emp = {
+            name : 'Magesh'
+        }
+        
+        greet.call(emp, 'Mr.', 'Have a nice day!')
+    ```
+4. Using the **apply** method of the function
+    ```
+        function fn(){
+            console.log('fn invoked');
+        }
+        fn()
+        fn.apply()
+
+        //dynamically set the this context when the function is executed
+        let emp = {
+            name : 'Magesh'
+        }
+        
+        function whoAmI(){
+            console.log('I am ', this.name)
+        }
+        
+        whoAmI.apply(emp)
+        ////////////////
+        function greet(salutation, msg){
+            console.log(salutation + this.name + ', ' + msg);
+        }
+        
+        let emp = {
+            name : 'Magesh'
+        }
+        
+        greet.apply(emp, ['Mr.', 'Have a nice day!'])
+    ```
