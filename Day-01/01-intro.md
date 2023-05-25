@@ -283,6 +283,35 @@ Modify the click-tracker.html to implement printing the number of times the butt
         - Ensure that the behavior of the spinner object is NOT influenceable from outside
         - NO HTML, NO BUTTON, NO Click event handler etc
 
-    
+    SOLUTION:
+        //singleton
+        var spinner = (function(){
+            var count = 0;
+
+            function up(){
+                return ++count;
+            }
+            function down(){
+                return --count;
+            }
+            var spinner = { up : up, down : down }
+            return spinner;
+        })();
+
+        //factory to create multiple instances
+        function spinnerFactory(){
+            var count = 0;
+
+            function up(){
+                return ++count;
+            }
+            function down(){
+                return --count;
+            }
+            var spinner = { up : up, down : down }
+            return spinner;
+        }
+        var spinner1 = spinnerFactory()
+        var spinner2 = spinnerFactory()
 
 ```
