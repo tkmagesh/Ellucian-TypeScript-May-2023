@@ -214,3 +214,24 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
     - Generics
     - Decorators
     - Utility Types (for creating the type system for your application)
+
+
+## Application Setup ##
+- Create a folder for the application (typescript-app)
+- cd typescript-app
+- npm init -y (create a package.json file with defaults)
+- npm install typescript --save-dev (install the typescript compiler)
+- npx tsc init (create a tsconfig.json compiler configuration)
+- modify the package.json 
+    - {
+            ...
+            "scripts: {
+                "build" : "tsc --watch"
+            }
+            ...
+        }
+- modify the tsconfig.json file
+    - {
+        "outDir" : "./dist" 
+      }
+- npm run build
