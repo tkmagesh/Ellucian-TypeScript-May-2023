@@ -141,6 +141,57 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
     - private, public & protected
     - static members
     - Inheritance
+
+```
+    class Employee {
+
+        //static method
+        static create(id, name, city){
+            return new Employee(id, name, city)
+        }
+        
+        //fields
+        _id = 0;
+        _name = '';
+        _city = '';
+
+        //accessors for fields
+        get id(){
+            console.log('getter-id invoked')
+            return this._id;
+        }
+        set id(val){
+            console.log('setter-id invoked')
+            this._id = val;
+        }
+
+        get name(){
+            return this._name;
+        }
+        set name(val){
+            this._name = val;
+        }
+
+        get city(){
+            return this._city;
+        }
+        set city(val){
+            this._city = val;
+        }
+
+        constructor(id, name, city){
+            this._id = id;
+            this._name = name;
+            this._city = city;
+        }
+
+        display(){
+            console.log(`id = ${this.id}, name = ${this.name}, city = ${this.city}`);
+        }
+    }
+    
+    var emp = Employee.create(100, 'Magesh', 'Bangalore')
+```
 - Modules
 - Type safety featues (In Curriculum)
     - Interfaces

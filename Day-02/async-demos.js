@@ -122,7 +122,7 @@ p2.then(doubleResult => console.log(`doubleResult = ${doubleResult}`))
 
 addAsyncPromise(100,200)
     .then(result => {
-            console.log(`[@client] result = ${result}`);
+        console.log(`[@client] result = ${result}`);
         const doubleResult = result * 2;
         return doubleResult;
     })
