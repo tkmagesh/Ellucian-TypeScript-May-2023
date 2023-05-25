@@ -89,7 +89,16 @@
         console.log(`[@client] invoking the service`);
         const result = await addAsyncPromise(100, 200);
         console.log(`[@client] result = ${result}`);
+    } 
+
+    async function addAsyncPromiseClient2() {
+        console.log(`[@client] invoking the service`);
+        const p1 = addAsyncPromise(100, 200);
+        const p2 = addAsyncPromise(1000,2000);
+        const [result1, result2] = await Promise.all([p1, p2])
+        console.log(`[@client] result = ${result1} - ${result2}`);
     }
+
     
     window['addAsyncPromiseClient'] = addAsyncPromiseClient;
 })()
