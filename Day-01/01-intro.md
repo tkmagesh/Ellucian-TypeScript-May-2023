@@ -315,3 +315,98 @@ Modify the click-tracker.html to implement printing the number of times the butt
         var spinner2 = spinnerFactory()
 
 ```
+
+```
+    var products = [
+        { id: 6, name: 'Pen', cost: 50, units: 20, category: 'stationary' },
+        { id: 9, name: 'Ten', cost: 70, units: 70, category: 'stationary' },
+        { id: 3, name: 'Len', cost: 60, units: 60, category: 'grocery' },
+        { id: 5, name: 'Zen', cost: 30, units: 30, category: 'grocery' },
+        { id: 1, name: 'Ken', cost: 20, units: 80, category: 'utencil' },
+        { id: 7, name: 'Mouse', cost: 100, units: 20, category: 'electronics' }
+    ];
+
+    /* Version 1.0 */
+    //finding costly products
+    function costlyProductPredicate(product){
+        return product.cost > 60
+    }
+    var costlyProducts = products.filter(costlyProductPredicate);
+    console.table(costlyProducts)
+
+    //finding affordable products
+    function affordableProductPredicate(product){
+        return !costlyProductPredicate(product);
+    }
+    var affordableProducts = products.filter(affordableProductPredicate)
+    console.table(affordableProducts);
+
+    //finding underStocked products
+    function underStockedProductPredicate(product){
+        return product.units <= 50;
+    }
+    var underStockedProducts = products.filter(underStockedProductPredicate);
+    console.table(underStockedProducts);
+
+    //finding wellSocked products
+    function wellStockedProductPredicate(product){
+        return !underStockedProductPredicate(product)
+    }
+    var wellStockedProducts = products.filter(wellStockedProductPredicate);
+    console.table(wellStockedProducts);
+
+    /* Version - 2.0 */
+    //utility function (negate) to create the negated version of a given predicate
+    function negate(predicateFn){
+        /* 
+        return function(product){
+            return !predicateFn(product)
+        } 
+        */
+        
+        //generic version to handle varying number of arguments
+        return function () {
+            return !predicateFn.apply(this, arguments)
+        }
+    }
+
+    //finding costly products
+    function costlyProductPredicate(product) {
+        return product.cost > 60
+    }
+    var costlyProducts = products.filter(costlyProductPredicate);
+    console.log("coslty products")
+    console.table(costlyProducts)
+
+    //finding affordable products
+    /* 
+    function affordableProductPredicate(product) {
+        return !costlyProductPredicate(product);
+    } 
+    */
+    var affordableProductPredicate = negate(costlyProductPredicate);
+
+    var affordableProducts = products.filter(affordableProductPredicate)
+    console.log("affordable products")
+    console.table(affordableProducts);
+
+    //finding underStocked products
+    function underStockedProductPredicate(product) {
+        return product.units <= 50;
+    }
+    var underStockedProducts = products.filter(underStockedProductPredicate);
+    console.log("understocked products")
+    console.table(underStockedProducts);
+
+    //finding wellSocked products
+    /* 
+    function wellStockedProductPredicate(product) {
+        return !underStockedProductPredicate(product)
+    } 
+    */
+    var wellStockedProductPredicate = negate(underStockedProductPredicate);
+
+    var wellStockedProducts = products.filter(wellStockedProductPredicate);
+    console.log("well stocked products")
+    console.table(wellStockedProducts);
+```
