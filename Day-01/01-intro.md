@@ -365,8 +365,16 @@ Modify the click-tracker.html to implement printing the number of times the butt
         */
         
         //generic version to handle varying number of arguments
+        // ES5
+        /*
         return function () {
             return !predicateFn.apply(this, arguments)
+        }
+        */
+
+        //ES6
+        return function(...args){
+            return !predicateFn(...args)
         }
     }
 
@@ -409,4 +417,54 @@ Modify the click-tracker.html to implement printing the number of times the butt
     var wellStockedProducts = products.filter(wellStockedProductPredicate);
     console.log("well stocked products")
     console.table(wellStockedProducts);
+```
+
+### Sorting ###
+```
+    sort the products in ascending & descending by any attribute
+
+    //Ascending by Id
+    function compareProductById(p1, p2){
+        if (p1.id < p2.id) return -1;
+        if (p1.id > p2.id) return 1;
+        return 0;
+    }
+
+    console.table(products.sort(compareProductById))
+
+
+    function getDescComparer(comparerFn){
+        return function(p1, p2){
+            return comparerFn(p1, p2) * -1;
+        }
+    }
+
+    //Descending by Id
+    var compareProductByIdDesc = getDescComparer(compareProductById)
+    console.table(products.sort(compareProductByIdDesc))
+
+    //Ascending by Name
+    function compareProductByName(p1, p2){
+        if (p1.name < p2.name) return -1;
+        if (p1.name > p2.name) return 1;
+        return 0;
+    }
+
+    //Descending by Name
+    var compareProductByNameDesc = getDescComparer(compareProductByName)
+    console.table(products.sort(compareProductByNameDesc))
+
+
+    //comparer factory
+    function getComparer(attrName){
+        return function(p1, p2){
+            if (p1[attrName] < p2[attrName]) return -1;
+            if (p1[attrName] > p2[attrName]) return 1;
+            return 0;
+        }
+    }
+
+    console.table(products.sort(getComparer('cost')))
+    console.table(products.sort(getDescComparer(getComparer('cost'))))
+
 ```
