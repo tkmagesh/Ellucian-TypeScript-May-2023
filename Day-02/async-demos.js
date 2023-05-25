@@ -74,6 +74,7 @@
         return p;
     }
     
+    window['addAsyncPromise'] = addAsyncPromise;
 
     /* 
     function addAsyncPromiseClient(){
@@ -103,3 +104,27 @@
     window['addAsyncPromiseClient'] = addAsyncPromiseClient;
 })()
 
+
+/* 
+Promise Chaining
+*/
+
+/* 
+const p = addAsyncPromise(100, 200)
+var p2 = p.then(result => {
+    console.log(`[@client] result = ${result}`);
+    const doubleResult = result * 2;
+    return doubleResult;
+})
+p2.then(doubleResult => console.log(`doubleResult = ${doubleResult}`))
+
+//OR
+
+addAsyncPromise(100,200)
+    .then(result => {
+            console.log(`[@client] result = ${result}`);
+        const doubleResult = result * 2;
+        return doubleResult;
+    })
+    .then(doubleResult => console.log(`doubleResult = ${doubleResult}`)) 
+*/
