@@ -339,9 +339,13 @@ Modify the click-tracker.html to implement printing the number of times the butt
 
     /* Version 1.0 */
     //finding costly products
+    /*
     function costlyProductPredicate(product){
         return product.cost > 60
     }
+    */
+    const costlyProductPredicate = product => product.cost > 60
+
     var costlyProducts = products.filter(costlyProductPredicate);
     console.table(costlyProducts)
 
@@ -388,6 +392,8 @@ Modify the click-tracker.html to implement printing the number of times the butt
             return !predicateFn(...args)
         }
     }
+
+    const negate = predicate => (...args) => !predicate(...args)
 
     //finding costly products
     function costlyProductPredicate(product) {

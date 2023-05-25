@@ -72,9 +72,66 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
          var fullTimeEmp = { ...emp, benefits : 'Healthcare' }
     ```
 - default arguments
+    ```
+        function add(x = 10, y = 20){
+            return x + y;
+        }
+        
+        add()
+        
+        add(100)
+        
+        add(undefined, 200)
+        
+        add(100,200)
+    ```
 - arrow functions
+    ```
+        /*
+            //function statement
+            function add(x,y){
+                return x + y;
+            }
+
+            //function expression
+            var add = function(x,y){
+                return x + y;
+            }
+
+            //arrow function
+            var add = (x,y) => {
+                return x + y;
+            }
+            */
+            var add = (x,y) => x + y;
+    ```
 - object construction enhancements
+    ```
+        var id = 100, name = 'Magesh', city = 'Bangalore'
+        /*
+        var emp = {
+            id : id,
+            name : name,
+            city : city
+        }
+        */
+        
+        var emp = { 
+            id, 
+            name, 
+            city,
+            display(){
+                //console.log(this.id, this.name, this.city);
+                console.log(`id  = ${this.id}, name = ${this.name}, city = ${this.city}`)
+            }
+        }
+    ```
 - template strings
+    ```
+        var x = 100, y = 200
+        var s1 = 'sum of ' + x + ' and ' + y + ' is ' + (x+y)
+        var s2 = `sum of ${x} and ${y} is ${x+y}`
+    ```
 - Promise (ES6)
 - class
     - fields
