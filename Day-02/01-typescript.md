@@ -186,11 +186,26 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
         }
 
         display(){
-            console.log(`id = ${this.id}, name = ${this.name}, city = ${this.city}`);
+            return `id = ${this.id}, name = ${this.name}, city = ${this.city}`;
         }
     }
     
     var emp = Employee.create(100, 'Magesh', 'Bangalore')
+```
+```
+    //Inheritance
+    class FullTimeEmployee extends Employee {
+        benefits = '';
+        constructor(id, name, city, benefits){
+            super(id, name, city);
+            this.benefits = benefits
+        }
+        display(){
+            return `${super.display()}, benefits = ${this.benefits}`
+        }
+    }
+    var fte = new FullTimeEmployee(200, 'Suresh', 'Pune', 'Healthcare')
+    fte.display()
 ```
 - Modules
 - Type safety featues (In Curriculum)
