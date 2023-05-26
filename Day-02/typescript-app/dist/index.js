@@ -68,4 +68,8 @@ const fnArgs = [10, true, "TypeScript"];
 const nos = [10, 20, 30, 40, 50];
 const productName = "Pen";
 const pe = { id: 100, name: "Pen", cost: 100, city: "Bangalore" };
-const de = { id: 100, name: "Magesh", salary: 10000 };
+/* type IdType = { id : number }
+type EmployeeDTO = { name : string, salary : number}
+type DomainEmployee = IdType & EmployeeDTO
+const de : DomainEmployee = { id : 100, name : "Magesh", salary : 10000}
+ */
