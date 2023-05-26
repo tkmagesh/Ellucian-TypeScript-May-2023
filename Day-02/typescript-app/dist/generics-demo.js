@@ -41,6 +41,9 @@ class ProductsCollection {
     }
     sort(by) {
         let comparerFn;
+        if (!by) {
+            return this.sortById();
+        }
         if (typeof by === 'function') {
             comparerFn = by;
         }
@@ -60,7 +63,44 @@ class ProductsCollection {
                 }
             }
     }
+    /* filterCostlyProducts() : ProductsCollection {
+        const result = new ProductsCollection()
+        for (let product of this.list){
+            if (product.cost > 50){
+                result.add(product)
+            }
+        }
+        return result
+    }
+
+    filterStationaryProducts(): ProductsCollection {
+        const result = new ProductsCollection()
+        for (let product of this.list) {
+            if (product.category === 'stationary') {
+                result.add(product)
+            }
+        }
+        return result
+    }
+ */
+    filter(predicate) {
+        const result = new ProductsCollection();
+        for (let product of this.list) {
+            if (predicate(product)) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
 }
+/*
+function negate<T>(p : Predicate<T>) : Predicate<T> {
+    return function(item : T) : boolean {
+        return !p(item)
+    }
+}
+*/
+const negate = (p) => (item) => !p(item);
 class MyCollection {
     constructor() {
         this.list = [];
@@ -102,10 +142,10 @@ class MyCollection {
             }
     }
     sort(by) {
-        let comparerFn = by;
-        if (typeof by === 'function') {
-            comparerFn = by;
+        if (!by) {
+            return this.sortById();
         }
+        let comparerFn = by;
         if (typeof by === 'string') {
             comparerFn = function (o1, o2) {
                 if (o1[by] > o2[by])
@@ -121,6 +161,22 @@ class MyCollection {
                     [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
                 }
             }
+    }
+    filter(predicate) {
+        const result = new MyCollection();
+        for (let item of this.list) {
+            if (predicate(item)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+    first(predicate) {
+        for (let item of this.list) {
+            if (predicate(item)) {
+                return item;
+            }
+        }
     }
 }
 /*
@@ -147,7 +203,9 @@ products.add({ id: 7, name: 'Mouse', cost: 100, units: 20, category: 'electronic
 console.log("initial list");
 console.table(products.getAll());
 console.log("Sort by id");
-products.sortById();
+// products.sortById()
+// take advantage of the optional parameter in sort() method
+products.sort();
 console.table(products.getAll());
 console.log("Sort by attribute [cost]");
 // products.sortByAttr('cost')
@@ -177,3 +235,22 @@ function compareProductByValue(p1, p2) {
 products.sort(compareProductByValue);
 console.table(products.getAll());
 // assignment : combine the functionality of sortByAttr() and sortByComparer() into "sort()"
+//assignment: implement filter() method
+/*
+    UseCases:
+        Filter by category
+        Filter by cost
+        Filter by units
+*/
+const costlyProductPredicate = (product) => product.cost > 50;
+const costlyProducts = products.filter(costlyProductPredicate);
+console.log("Costly products");
+console.table(costlyProducts.getAll());
+const affordableProductPredicate = negate(costlyProductPredicate);
+const affordableProducts = products.filter(affordableProductPredicate);
+console.log("Affordable products");
+console.table(affordableProducts.getAll());
+const stationaryProductPredicate = p => p.category === 'stationary';
+const stationaryProducts = products.filter(stationaryProductPredicate);
+console.log("Stationary products");
+console.table(stationaryProducts.getAll());

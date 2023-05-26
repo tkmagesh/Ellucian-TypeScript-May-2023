@@ -61,8 +61,12 @@ class ProductsCollection {
             }
     }
 
-    sort(by : any){
+    sort(by? : any){
         let comparerFn ;
+        if (!by){
+            return this.sortById()
+        }
+
         if (typeof by === 'function'){
             comparerFn = by
         }
@@ -80,10 +84,53 @@ class ProductsCollection {
                 }
             }
     }
+
+    /* filterCostlyProducts() : ProductsCollection {
+        const result = new ProductsCollection()
+        for (let product of this.list){
+            if (product.cost > 50){
+                result.add(product)
+            }
+        }
+        return result
+    }
+
+    filterStationaryProducts(): ProductsCollection {
+        const result = new ProductsCollection()
+        for (let product of this.list) {
+            if (product.category === 'stationary') {
+                result.add(product)
+            }
+        }
+        return result
+    }
+ */
+    filter(predicate : any) : ProductsCollection {
+        const result = new ProductsCollection()
+        for (let product of this.list) {
+            if (predicate(product)) {
+                result.add(product)
+            }
+        }
+        return result
+    }
+
 }
 
-type IdType = { id : number }
-type ComparerFn<T> = (x : T, y : T) => number
+type IdType = { id : number };
+type ComparerFn<T> = (x : T, y : T) => number;
+type Predicate<T> = (o : T) => boolean;
+type Negate = <T>(p: Predicate<T>) => Predicate<T>
+
+/* 
+function negate<T>(p : Predicate<T>) : Predicate<T> {
+    return function(item : T) : boolean {
+        return !p(item)
+    }
+} 
+*/
+
+const negate : Negate = <T>(p : Predicate<T>) => (item : T) => !p(item)
 
 class MyCollection<T extends IdType>{
     private list : T[] = []
@@ -131,11 +178,11 @@ class MyCollection<T extends IdType>{
             }
     }
 
-    sort(by: keyof T | ComparerFn<T> ) {
-        let comparerFn : ComparerFn<T> = by as ComparerFn<T> ;
-        if (typeof by === 'function') {
-            comparerFn = by
+    sort(by?: keyof T | ComparerFn<T> ) {
+        if (!by){
+            return this.sortById()
         }
+        let comparerFn : ComparerFn<T> = by as ComparerFn<T>
         if (typeof by === 'string') {
             comparerFn = function (o1: any, o2: any) {
                 if (o1[by] > o2[by]) return 1
@@ -143,7 +190,6 @@ class MyCollection<T extends IdType>{
                 return 0
             }
         }
-        
         for (let i = 0; i < this.list.length - 1; i++)
             for (let j = i + 1; j < this.list.length; j++) {
                 if (comparerFn(this.list[i], this.list[j]) > 0) {
@@ -152,6 +198,23 @@ class MyCollection<T extends IdType>{
             }
     }
 
+    filter(predicate: Predicate<T> ): MyCollection<T> {
+        const result = new MyCollection<T>()
+        for (let item of this.list) {
+            if (predicate(item)) {
+                result.add(item)
+            }
+        }
+        return result
+    }
+
+    first(predicate : Predicate<T>) : T | undefined {
+        for (let item of this.list){
+            if (predicate(item)){
+                return item;
+            }
+        }
+    }
     
 }
 
@@ -183,7 +246,9 @@ console.log("initial list")
 console.table(products.getAll())
 
 console.log("Sort by id")
-products.sortById()
+// products.sortById()
+// take advantage of the optional parameter in sort() method
+products.sort()
 console.table(products.getAll())
 
 console.log("Sort by attribute [cost]")
@@ -213,4 +278,28 @@ function compareProductByValue(p1: MyProduct, p2: MyProduct) : number {
 products.sort(compareProductByValue)
 console.table(products.getAll())
 
+
 // assignment : combine the functionality of sortByAttr() and sortByComparer() into "sort()"
+
+//assignment: implement filter() method
+/* 
+    UseCases:
+        Filter by category
+        Filter by cost
+        Filter by units
+*/
+
+const costlyProductPredicate = (product : MyProduct) => product.cost > 50
+const costlyProducts = products.filter(costlyProductPredicate);
+console.log("Costly products")
+console.table(costlyProducts.getAll())
+
+const affordableProductPredicate = negate(costlyProductPredicate)
+const affordableProducts = products.filter(affordableProductPredicate)
+console.log("Affordable products")
+console.table(affordableProducts.getAll())
+
+const stationaryProductPredicate : Predicate<MyProduct> = p =>  p.category === 'stationary'
+const stationaryProducts = products.filter(stationaryProductPredicate)
+console.log("Stationary products")
+console.table(stationaryProducts.getAll())
