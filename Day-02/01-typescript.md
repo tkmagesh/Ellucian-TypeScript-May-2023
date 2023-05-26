@@ -235,3 +235,14 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
         "outDir" : "./dist" 
       }
 - npm run build
+
+## Executing the generated JS code ##
+- in Node.js
+    - cd typescript-app/dist
+    - node index.js
+- in the browser
+    - create an index.html page
+    - add a reference to the generated js file
+    - run a web server
+        - npx http-server -c -1
+    - hit "http://localhost:8080" in the browser
