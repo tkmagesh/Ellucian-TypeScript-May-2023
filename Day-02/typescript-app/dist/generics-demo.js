@@ -39,6 +39,27 @@ class ProductsCollection {
                 }
             }
     }
+    sort(by) {
+        let comparerFn;
+        if (typeof by === 'function') {
+            comparerFn = by;
+        }
+        if (typeof by === 'string') {
+            comparerFn = function (o1, o2) {
+                if (o1[by] > o2[by])
+                    return 1;
+                if (o1[by] < o2[by])
+                    return -1;
+                return 0;
+            };
+        }
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
+                }
+            }
+    }
 }
 class MyCollection {
     constructor() {
@@ -80,6 +101,27 @@ class MyCollection {
                 }
             }
     }
+    sort(by) {
+        let comparerFn = by;
+        if (typeof by === 'function') {
+            comparerFn = by;
+        }
+        if (typeof by === 'string') {
+            comparerFn = function (o1, o2) {
+                if (o1[by] > o2[by])
+                    return 1;
+                if (o1[by] < o2[by])
+                    return -1;
+                return 0;
+            };
+        }
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
+                }
+            }
+    }
 }
 /*
 const myNoCol = new MyCollection<number>()
@@ -108,7 +150,8 @@ console.log("Sort by id");
 products.sortById();
 console.table(products.getAll());
 console.log("Sort by attribute [cost]");
-products.sortByAttr('cost');
+// products.sortByAttr('cost')
+products.sort('cost');
 console.table(products.getAll());
 console.log("Sort by comparer [units]");
 function compareProductByUnits(p1, p2) {
@@ -118,7 +161,8 @@ function compareProductByUnits(p1, p2) {
         return -1;
     return 0;
 }
-products.sortByComparer(compareProductByUnits);
+// products.sortByComparer(compareProductByUnits)
+products.sort(compareProductByUnits);
 console.table(products.getAll());
 console.log("Sort by comparer [by value = cost * units]");
 function compareProductByValue(p1, p2) {
@@ -129,6 +173,7 @@ function compareProductByValue(p1, p2) {
         return -1;
     return 0;
 }
-products.sortByComparer(compareProductByValue);
+// products.sortByComparer(compareProductByValue)
+products.sort(compareProductByValue);
 console.table(products.getAll());
 // assignment : combine the functionality of sortByAttr() and sortByComparer() into "sort()"
