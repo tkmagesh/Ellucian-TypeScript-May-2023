@@ -9,6 +9,10 @@ type MyProduct = {
 // type MyProductKeys = 'id' | 'name' | 'cost' | 'units' | 'category'
 type MyProductKeys = keyof MyProduct
 
+//Accessing attribute value types
+type MyProductCostType = MyProduct['cost']
+// type MyProductAttrTypes = MyProduct['id' | 'name' | 'cost' | 'units' | 'category']
+type MyProductAttrTypes = MyProduct[keyof MyProduct]
 
 
 class ProductsCollection {
@@ -47,9 +51,19 @@ class ProductsCollection {
                 }
             }
     }
+
+    sortByComparer(comparerFn : any){
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0 ) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]]
+                }
+            }
+    }
 }
 
 type IdType = { id : number }
+type ComparerFn<T> = (x : T, y : T) => number
 
 class MyCollection<T extends IdType>{
     private list : T[] = []
@@ -87,6 +101,17 @@ class MyCollection<T extends IdType>{
                 }
             }
     }
+
+    sortByComparer(comparerFn: ComparerFn<T>) {
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]]
+                }
+            }
+    }
+
+    
 }
 
 /* 
@@ -103,7 +128,7 @@ myCol.add(100)
 myCol.add("Pen") 
 */
 
-//const products = new ProductsCollection()
+// const products = new ProductsCollection()
 const products = new MyCollection<MyProduct>()
 
 products.add({ id: 6, name: 'Pen', cost: 50, units: 20, category: 'stationary' });
@@ -124,4 +149,22 @@ console.log("Sort by attribute [cost]")
 products.sortByAttr('cost')
 console.table(products.getAll());
 
+console.log("Sort by comparer [units]")
+function compareProductByUnits(p1 : any, p2 : any){
+    if (p1.units > p2.units) return 1;
+    if (p1.units < p2.units) return -1;
+    return 0;
+}
+products.sortByComparer(compareProductByUnits)
+console.table(products.getAll())
 
+console.log("Sort by comparer [by value = cost * units]")
+function compareProductByValue(p1: any, p2: any) {
+    const p1Value = p1.cost * p1.units,
+        p2Value = p2.cost * p2.units;
+    if (p1Value > p2Value) return 1;
+    if (p1Value < p2Value) return -1;
+    return 0;
+}
+products.sortByComparer(compareProductByValue)
+console.table(products.getAll())

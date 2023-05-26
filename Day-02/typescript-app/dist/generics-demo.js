@@ -31,6 +31,14 @@ class ProductsCollection {
                 }
             }
     }
+    sortByComparer(comparerFn) {
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
+                }
+            }
+    }
 }
 class MyCollection {
     constructor() {
@@ -64,6 +72,14 @@ class MyCollection {
                 }
             }
     }
+    sortByComparer(comparerFn) {
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (comparerFn(this.list[i], this.list[j]) > 0) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]];
+                }
+            }
+    }
 }
 /*
 const myNoCol = new MyCollection<number>()
@@ -78,7 +94,7 @@ const myCol = new MyCollection<number | string>()
 myCol.add(100)
 myCol.add("Pen")
 */
-//const products = new ProductsCollection()
+// const products = new ProductsCollection()
 const products = new MyCollection();
 products.add({ id: 6, name: 'Pen', cost: 50, units: 20, category: 'stationary' });
 products.add({ id: 9, name: 'Ten', cost: 70, units: 70, category: 'stationary' });
@@ -93,4 +109,25 @@ products.sortById();
 console.table(products.getAll());
 console.log("Sort by attribute [cost]");
 products.sortByAttr('cost');
+console.table(products.getAll());
+console.log("Sort by comparer [units]");
+function compareProductByUnits(p1, p2) {
+    if (p1.units > p2.units)
+        return 1;
+    if (p1.units < p2.units)
+        return -1;
+    return 0;
+}
+products.sortByComparer(compareProductByUnits);
+console.table(products.getAll());
+console.log("Sort by comparer [by value = cost * units]");
+function compareProductByValue(p1, p2) {
+    const p1Value = p1.cost * p1.units, p2Value = p2.cost * p2.units;
+    if (p1Value > p2Value)
+        return 1;
+    if (p1Value < p2Value)
+        return -1;
+    return 0;
+}
+products.sortByComparer(compareProductByValue);
 console.table(products.getAll());
