@@ -115,6 +115,36 @@ class ProductsCollection {
         return result
     }
 
+    groupByCategory() : any {
+        const result : any = {}
+        for (let product of this.list){
+            const key = product.category
+            result[key] = result[key] || []
+            result[key].push(product)
+        }
+        return result
+    }
+
+    groupByCost() : any {
+        const result: any = {}
+        for (let product of this.list) {
+            const key = product.cost > 50 ? 'costly' : 'affordable'
+            result[key] = result[key] || []
+            result[key].push(product)
+        }
+        return result
+    }
+
+    groupBy(keySelectorFn : any): any {
+        const result: any = {}
+        for (let product of this.list) {
+            const key = keySelectorFn(product)
+            result[key] = result[key] || []
+            result[key].push(product)
+        }
+        return result
+    }
+
 }
 
 type IdType = { id : number };
@@ -232,8 +262,8 @@ myCol.add(100)
 myCol.add("Pen") 
 */
 
-// const products = new ProductsCollection()
-const products = new MyCollection<MyProduct>()
+const products = new ProductsCollection()
+// const products = new MyCollection<MyProduct>()
 
 products.add({ id: 6, name: 'Pen', cost: 50, units: 20, category: 'stationary' });
 products.add({ id: 9, name: 'Ten', cost: 70, units: 70, category: 'stationary' });
@@ -304,6 +334,25 @@ const stationaryProducts = products.filter(stationaryProductPredicate)
 console.log("Stationary products")
 console.table(stationaryProducts.getAll())
 
+
+// const productsByCategory = products.groupByCategory()
+const productCategoryKeySelector = function(product : any){
+    return product.category
+}
+const productsByCategory = products.groupBy(productCategoryKeySelector);
+console.log("Group products by category")
+console.log(productsByCategory);
+
+// const productsByCost = products.groupByCost()
+const productCostKeySelector = function(product : any){
+    return product.cost > 50 ? "costly" : "affordable"
+}
+const productsByCost = products.groupBy(productCostKeySelector)
+console.log("Group products by cost")
+console.log(productsByCost);
+
+/* 
+
 enum EmploymentType {
     contract,
     fulltime
@@ -320,4 +369,5 @@ const employees = new MyCollection<MyEmployee>()
 const fullTimeEmployeePredicate : Predicate<MyEmployee> = 
     e => e.employmentType === EmploymentType.fulltime;
 
-employees.filter(fullTimeEmployeePredicate)
+employees.filter(fullTimeEmployeePredicate) 
+*/
