@@ -156,3 +156,9 @@ type EmployeeType = {
 type ProductEmployee = ProductType & EmployeeType
 const pe : ProductEmployee = { id : 100, name : "Pen", cost : 100, city : "Bangalore" }
 
+type IdType = { id : number }
+type EmployeeDTO = { name : string, salary : number}
+type DomainEmployee = IdType & EmployeeDTO
+const de : DomainEmployee = { id : 100, name : "Magesh", salary : 10000}
+
+

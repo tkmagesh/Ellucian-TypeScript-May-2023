@@ -68,3 +68,4 @@ const fnArgs = [10, true, "TypeScript"];
 const nos = [10, 20, 30, 40, 50];
 const productName = "Pen";
 const pe = { id: 100, name: "Pen", cost: 100, city: "Bangalore" };
+const de = { id: 100, name: "Magesh", salary: 10000 };
