@@ -254,3 +254,11 @@ const stationaryProductPredicate = p => p.category === 'stationary';
 const stationaryProducts = products.filter(stationaryProductPredicate);
 console.log("Stationary products");
 console.table(stationaryProducts.getAll());
+var EmploymentType;
+(function (EmploymentType) {
+    EmploymentType[EmploymentType["contract"] = 0] = "contract";
+    EmploymentType[EmploymentType["fulltime"] = 1] = "fulltime";
+})(EmploymentType || (EmploymentType = {}));
+const employees = new MyCollection();
+const fullTimeEmployeePredicate = e => e.employmentType === EmploymentType.fulltime;
+employees.filter(fullTimeEmployeePredicate);

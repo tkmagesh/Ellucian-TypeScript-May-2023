@@ -303,3 +303,21 @@ const stationaryProductPredicate : Predicate<MyProduct> = p =>  p.category === '
 const stationaryProducts = products.filter(stationaryProductPredicate)
 console.log("Stationary products")
 console.table(stationaryProducts.getAll())
+
+enum EmploymentType {
+    contract,
+    fulltime
+}
+
+type MyEmployee = {
+    id : number,
+    name : string,
+    employmentType : EmploymentType
+}
+
+const employees = new MyCollection<MyEmployee>()
+
+const fullTimeEmployeePredicate : Predicate<MyEmployee> = 
+    e => e.employmentType === EmploymentType.fulltime;
+
+employees.filter(fullTimeEmployeePredicate)
