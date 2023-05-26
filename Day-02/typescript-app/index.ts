@@ -134,3 +134,25 @@ const fnArgs : FnArgs = [10, true, "TypeScript"]
 
 //Arrays
 const nos : number[] = [10,20,30,40,50]
+
+/* Unions */
+// (fixed set of product names - Pen, Pencil, Marker, Scribble-Pad)
+type ProductNames = "Pen" | "Pencil" | "Marker" | "Scribble-Pad" 
+const productName : ProductNames = "Pen"
+
+/* Intersection */
+type ProductType = {
+    id: number,
+    name: string,
+    cost: number
+}
+
+type EmployeeType = {
+    id: number,
+    name: string,
+    city: string
+}
+
+type ProductEmployee = ProductType & EmployeeType
+const pe : ProductEmployee = { id : 100, name : "Pen", cost : 100, city : "Bangalore" }
+

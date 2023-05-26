@@ -268,7 +268,15 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
     type DataStructures = 
         | { key1 : boolean, key2 : string} //objects
         | { [key : string] : number } // records
-        | [boolean, string] // tuple
-        | number[]
+        | [boolean, string] // tuples
+        | number[] //arrays
 
 ```
+
+## Unions & Intersections ##
+```
+    type Union = X | Y
+    type Intersection = X & Y
+```
+- "Union of X | Y " = either a value of type X or value of type Y
+- "Intersection of X & Y" = a value that is simultaneously of type X and Y 
