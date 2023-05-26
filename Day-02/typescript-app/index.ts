@@ -55,3 +55,62 @@ class Employee {
 
 const emp = Employee.create(100, 'Magesh', 'Bangalore')
 console.log(emp.id)
+
+
+//using object literal type
+/* 
+function applyDiscount(product : { id : number, name : string, cost : number}, discountPercentage : number){
+    product.cost = product.cost * ((100-discountPercentage)/100)
+} 
+
+// var product : { id: number, name: string, cost: number }  = { id: 100, name: 'Pen', cost: 10 }
+// var product: { id: number, name: string, cost: number } = {id : 100, name : 'Magesh', city : "Bangalore"};
+
+// var product:Product = {id : 100, name : 'Magesh', city : "Bangalore"};
+console.log("Before applying discount - ", product)
+applyDiscount(product, 10)
+console.log("After applying discount - ", product)
+*/
+
+//using the interface (interfaces are used to define the object structure)
+/* 
+interface Product {
+    id : number,
+    name : string,
+    cost : number
+}
+
+function applyDiscount(product: Product, discountPercentage: number) {
+    product.cost = product.cost * ((100 - discountPercentage) / 100)
+}
+
+var product :Product  = { id: 100, name: 'Pen', cost: 10 }
+// var product:Product = {id : 100, name : 'Magesh', city : "Bangalore"};
+console.log("Before applying discount - ", product)
+applyDiscount(product, 10)
+console.log("After applying discount - ", product) 
+*/
+
+
+//using type
+type Product = {
+    id: number,
+    name: string,
+    cost: number
+}
+
+function applyDiscount(product: Product, discountPercentage: number) {
+    product.cost = product.cost * ((100 - discountPercentage) / 100)
+}
+
+var product: Product = { id: 100, name: 'Pen', cost: 20 }
+// var product:Product = {id : 100, name : 'Magesh', city : "Bangalore"};
+console.log("Before applying discount - ", product)
+applyDiscount(product, 10)
+console.log("After applying discount - ", product)
+
+
+
+function log(data : any){
+    console.log(`${Date()} - ${data}`)
+}

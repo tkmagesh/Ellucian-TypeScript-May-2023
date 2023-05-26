@@ -44,3 +44,14 @@ class Employee {
 }
 const emp = Employee.create(100, 'Magesh', 'Bangalore');
 console.log(emp.id);
+function applyDiscount(product, discountPercentage) {
+    product.cost = product.cost * ((100 - discountPercentage) / 100);
+}
+var product = { id: 100, name: 'Pen', cost: 20 };
+// var product:Product = {id : 100, name : 'Magesh', city : "Bangalore"};
+console.log("Before applying discount - ", product);
+applyDiscount(product, 10);
+console.log("After applying discount - ", product);
+function log(data) {
+    console.log(`${Date()} - ${data}`);
+}
