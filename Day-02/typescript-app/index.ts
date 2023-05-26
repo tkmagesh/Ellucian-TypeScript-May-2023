@@ -114,3 +114,23 @@ console.log("After applying discount - ", product)
 function log(data : any){
     console.log(`${Date()} - ${data}`)
 }
+
+/* Type Discussion */
+
+let no : 100 = 100
+
+//Records
+type Colors = { [name : string] : number }
+const colors : Colors = {
+    "red" : 1,
+    "green" : 2,
+    "blue" : 3
+}
+console.log(colors["red"])
+
+//Tuples
+type FnArgs = [number, boolean, string]
+const fnArgs : FnArgs = [10, true, "TypeScript"]
+
+//Arrays
+const nos : number[] = [10,20,30,40,50]

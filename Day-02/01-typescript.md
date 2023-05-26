@@ -246,3 +246,29 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
     - run a web server
         - npx http-server -c -1
     - hit "http://localhost:8080" in the browser
+
+## Type in TypeScript
+```
+    type Primitives = 
+        | number
+        | string
+        | boolean
+        | symbol
+        | bigint
+        | undefined
+        | null
+
+    type Literals = 
+        | 20
+        | "Hi there"
+        | true
+        | 10000n
+        | .....
+
+    type DataStructures = 
+        | { key1 : boolean, key2 : string} //objects
+        | { [key : string] : number } // records
+        | [boolean, string] // tuple
+        | number[]
+
+```

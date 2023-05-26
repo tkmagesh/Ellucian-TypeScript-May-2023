@@ -55,3 +55,14 @@ console.log("After applying discount - ", product);
 function log(data) {
     console.log(`${Date()} - ${data}`);
 }
+/* Type Discussion */
+let no = 100;
+const colors = {
+    "red": 1,
+    "green": 2,
+    "blue": 3
+};
+console.log(colors["red"]);
+const fnArgs = [10, true, "TypeScript"];
+//Arrays
+const nos = [10, 20, 30, 40, 50];
