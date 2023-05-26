@@ -6,6 +6,11 @@ type MyProduct = {
     category : string
 }
 
+// type MyProductKeys = 'id' | 'name' | 'cost' | 'units' | 'category'
+type MyProductKeys = keyof MyProduct
+
+
+
 class ProductsCollection {
     private list : MyProduct[] = []
 
@@ -27,8 +32,17 @@ class ProductsCollection {
 
     sortById(){
         for (let i = 0; i < this.list.length - 1;  i++)
-            for (let j = 0; j < this.list.length; j++){
+            for (let j = i+1; j < this.list.length; j++){
                 if (this.list[i].id > this.list[j].id){
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]]
+                }
+            }
+    }
+
+    sortByAttr(attrName: 'id' | 'name' | 'cost' | 'units' | 'category'){
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i+1; j < this.list.length; j++) {
+                if (this.list[i][attrName] > this.list[j][attrName]) {
                     [this.list[i], this.list[j]] = [this.list[j], this.list[i]]
                 }
             }
@@ -64,6 +78,15 @@ class MyCollection<T extends IdType>{
                 }
             }
     }
+
+    sortByAttr(attrName: keyof T) {
+        for (let i = 0; i < this.list.length - 1; i++)
+            for (let j = i + 1; j < this.list.length; j++) {
+                if (this.list[i][attrName] > this.list[j][attrName]) {
+                    [this.list[i], this.list[j]] = [this.list[j], this.list[i]]
+                }
+            }
+    }
 }
 
 /* 
@@ -80,7 +103,7 @@ myCol.add(100)
 myCol.add("Pen") 
 */
 
-// const products = new ProductsCollection()
+//const products = new ProductsCollection()
 const products = new MyCollection<MyProduct>()
 
 products.add({ id: 6, name: 'Pen', cost: 50, units: 20, category: 'stationary' });
@@ -96,5 +119,9 @@ console.table(products.getAll())
 console.log("Sort by id")
 products.sortById()
 console.table(products.getAll())
+
+console.log("Sort by attribute [cost]")
+products.sortByAttr('cost')
+console.table(products.getAll());
 
 
