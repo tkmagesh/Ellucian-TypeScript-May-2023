@@ -159,7 +159,7 @@ products.sortByComparer(compareProductByUnits)
 console.table(products.getAll())
 
 console.log("Sort by comparer [by value = cost * units]")
-function compareProductByValue(p1: any, p2: any) {
+function compareProductByValue(p1: MyProduct, p2: MyProduct) : number {
     const p1Value = p1.cost * p1.units,
         p2Value = p2.cost * p2.units;
     if (p1Value > p2Value) return 1;
@@ -168,3 +168,5 @@ function compareProductByValue(p1: any, p2: any) {
 }
 products.sortByComparer(compareProductByValue)
 console.table(products.getAll())
+
+// assignment : combine the functionality of sortByAttr() and sortByComparer() into "sort()"

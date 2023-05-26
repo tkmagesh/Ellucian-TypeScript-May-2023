@@ -131,3 +131,4 @@ function compareProductByValue(p1, p2) {
 }
 products.sortByComparer(compareProductByValue);
 console.table(products.getAll());
+// assignment : combine the functionality of sortByAttr() and sortByComparer() into "sort()"
