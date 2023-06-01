@@ -151,6 +151,7 @@ type IdType = { id : number };
 type ComparerFn<T> = (x : T, y : T) => number;
 type Predicate<T> = (o : T) => boolean;
 type Negate = <T>(p: Predicate<T>) => Predicate<T>
+type KeySelector<T, TKey> = (item : T) => TKey
 
 /* 
 function negate<T>(p : Predicate<T>) : Predicate<T> {
@@ -245,6 +246,17 @@ class MyCollection<T extends IdType>{
             }
         }
     }
+
+    groupBy<TKey extends number | string | symbol> (keySelectorFn: KeySelector<T, TKey>): Record<TKey, T[]> {
+        const result: Record<TKey, T[]> = <Record < TKey, T[]>>{}
+        for (let product of this.list) {
+            const key = keySelectorFn(product)
+            result[key] = result[key] || []
+            result[key].push(product)
+        }
+        return result
+    }
+
     
 }
 

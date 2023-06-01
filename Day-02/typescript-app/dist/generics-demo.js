@@ -205,6 +205,15 @@ class MyCollection {
             }
         }
     }
+    groupBy(keySelectorFn) {
+        const result = {};
+        for (let product of this.list) {
+            const key = keySelectorFn(product);
+            result[key] = result[key] || [];
+            result[key].push(product);
+        }
+        return result;
+    }
 }
 /*
 const myNoCol = new MyCollection<number>()

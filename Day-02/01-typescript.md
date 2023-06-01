@@ -273,6 +273,19 @@ TypeScript = JavaScript + Type Safety (compilation time) + High level language f
 
 ```
 
+## Object (DataStructure) ##
+- Fixed number of key/value pairs
+```
+    type Emp = { "id" : number, "name" : string }
+    let validEmp : Emp = { id : 100, name : "Ann" }
+    let invalidEmp : Emp = { id : 100, name : "Magesh", city : "Bangalore}
+```
+
+## Record (DataStructure) ##
+- Can have infinite number of key/value pairs
+- All the keys should be of the same type
+- All the values should be of the same type
+
 ## Unions & Intersections ##
 ```
     type Union = X | Y
